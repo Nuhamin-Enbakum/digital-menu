@@ -3,6 +3,7 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const authRoutes = require("./routes/auth");
 const restaurantRoutes = require("./routes/restaurants");
+const categoryRoutes = require("./routes/categories");
 
 
 
@@ -22,4 +23,5 @@ app.listen(PORT, () => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/restaurants", restaurantRoutes);
+app.use("/api/categories", categoryRoutes);
 
