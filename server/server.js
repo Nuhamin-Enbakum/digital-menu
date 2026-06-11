@@ -4,6 +4,8 @@ const dotenv = require("dotenv");
 const authRoutes = require("./routes/auth");
 const restaurantRoutes = require("./routes/restaurants");
 const categoryRoutes = require("./routes/categories");
+const itemRoutes = require("./routes/items");
+
 
 
 
@@ -16,12 +18,13 @@ app.get("/", (req, res) => {
     res.send("Digital menu API is running")
 });
 
+app.use("/api/auth", authRoutes);
+app.use("/api/restaurants", restaurantRoutes);
+app.use("/api/categories", categoryRoutes);
+app.use("/api/items", itemRoutes);
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-
-app.use("/api/auth", authRoutes);
-app.use("/api/restaurants", restaurantRoutes);
-app.use("/api/categories", categoryRoutes);
 
