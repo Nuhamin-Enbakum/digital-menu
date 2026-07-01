@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../utils/api";
+import QRCode from "react-qr-code";
 
 function Dashboard() {
     const [restaurant, setRestaurant] = useState(null);
@@ -48,7 +49,7 @@ function Dashboard() {
         }
     };
 
-    // Add category
+    
     const addCategory = async () => {
         try {
             const response = await api.post("/categories/add", { name: newCategory });
@@ -59,7 +60,7 @@ function Dashboard() {
         }
     };
 
-    // Edit category
+    
     const editCategory = async (id) => {
         try {
             const response = await api.put(`/categories/${id}`, { name: editCategoryName });
@@ -73,7 +74,7 @@ function Dashboard() {
         }
     };
 
-    // Delete category
+    
     const deleteCategory = async (id) => {
         try {
             await api.delete(`/categories/${id}`);
@@ -83,7 +84,7 @@ function Dashboard() {
         }
     };
 
-    // Add menu item
+    
     const addItem = async () => {
         try {
             const response = await api.post("/items/add", newItem);
@@ -100,7 +101,7 @@ function Dashboard() {
         }
     };
 
-    // Delete menu item
+    
     const deleteItem = async (id) => {
         try {
             await api.delete(`/items/${id}`);
@@ -110,7 +111,7 @@ function Dashboard() {
         }
     };
 
-    // Toggle availability
+    
     const toggleAvailability = async (id) => {
         try {
             const response = await api.put(`/items/${id}/toggle`);
@@ -122,7 +123,7 @@ function Dashboard() {
         }
     };
 
-    // Logout
+    
     const logout = () => {
         localStorage.removeItem("token");
         navigate("/login");
@@ -137,8 +138,13 @@ function Dashboard() {
                 <h1>{restaurant?.name}</h1>
                 <button onClick={logout}>Logout</button>
             </div>
+            <div>
+                <h2>Your QR Code</h2>
+                <p>Customers scan this to see your menu</p>
+                <QRCode value={`http://192.168.1.5:5173/menu/${restaurant?.slug}`} size={200}/>
+            </div>
 
-            {/* Categories Section */}
+            
             <div>
                 <h2>Categories</h2>
                 {categories.map((category) => (
@@ -166,7 +172,7 @@ function Dashboard() {
                     </div>
                 ))}
 
-                {/* Add Category */}
+                
                 <input
                     type="text"
                     placeholder="New category name"
@@ -176,7 +182,7 @@ function Dashboard() {
                 <button onClick={addCategory}>Add Category</button>
             </div>
 
-            {/* Menu Items Section */}
+            
             <div>
                 <h2>Menu Items</h2>
                 {items.map((item) => (
@@ -191,7 +197,7 @@ function Dashboard() {
                     </div>
                 ))}
 
-                {/* Add Menu Item */}
+                
                 <h3>Add New Item</h3>
                 <input
                     type="text"
